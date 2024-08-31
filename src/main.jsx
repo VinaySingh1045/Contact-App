@@ -7,23 +7,30 @@ import Layout from './Layout.jsx'
 import Signin from './component/Signin.jsx'
 import Signup from './component/Signup.jsx'
 import ContactList from './component/ContactList.jsx'
+import { Provider } from 'react-redux'
+import store from './app/store.js'
+import AddContact from './component/AddContact.jsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout/>,
-    children:[
+    element: <Layout />,
+    children: [
       {
         path: '',
-        element: <Signin/>
+        element: <Signin />
       },
       {
         path: '/signup',
-        element: <Signup/>
+        element: <Signup />
       },
       {
         path: '/list',
-        element: <ContactList/>
+        element: <ContactList />
+      },
+      {
+        path: '/addlist',
+        element: <AddContact />
       },
     ]
   }
@@ -31,6 +38,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>,
 )

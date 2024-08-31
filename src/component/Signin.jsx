@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { setUser } from '../features/authSlice'
 
 const Signin = () => {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const [userData, setUserData] = useState({
     email: "",
@@ -25,6 +28,7 @@ const Signin = () => {
     if (findUser) {
       // alert('Login successful!')
       // window.location.href = '/list'; // Redirect to contact list page
+      dispatch(setUser(findUser));
       navigate("/list");
     }
     else {
