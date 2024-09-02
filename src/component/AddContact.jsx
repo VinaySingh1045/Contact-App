@@ -14,7 +14,7 @@ const AddContact = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        // how to submit on same local host user id 
+        // how to submit contact list  on same user in localStorage 
         
     }
 
