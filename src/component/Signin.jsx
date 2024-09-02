@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setUser } from '../features/authSlice'
 
@@ -7,6 +7,8 @@ const Signin = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const { user } = useSelector(state => state.auth)
 
   const [userData, setUserData] = useState({
     email: "",
@@ -34,6 +36,7 @@ const Signin = () => {
     else {
       alert('Invalid credentials!')
     }
+
 
   }
 

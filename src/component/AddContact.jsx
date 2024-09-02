@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const AddContact = () => {
 
     const { user } = useSelector(state => state.auth)
+    const navigate = useNavigate();
 
     const [contactData, setContactData] = useState({
         email: "",
@@ -38,6 +40,7 @@ const AddContact = () => {
             });
 
             alert("Contact added successfully!");
+            navigate("/list")
 
         } else {
             alert("User not found!");
