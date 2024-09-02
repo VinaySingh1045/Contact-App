@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const AddContact = () => {
+
+    const { user } = useSelector(state => state.auth)
 
     const [contactData, setContactData] = useState({
         email: "",
@@ -14,8 +17,31 @@ const AddContact = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
+
         // how to submit contact list  on same user in localStorage 
+
+        const users = JSON.parse(localStorage.getItem("userDataa")) || []
+        // const updatedUsers = users.map(user => user.email === user.email? {...user, contacts: [...user.contacts, contactData]} : user)
         
+        const currentUser = users.find(u => u.email === user.email);
+
+        if (currentUser) {
+            currentUser.contacts = currentUser.contacts ? [...currentUser.contacts, contactData] : [contactData];
+
+            const updatedUsers = users.map(u => u.email === user.email ? currentUser : u);
+            localStorage.setItem("userDataa", JSON.stringify(updatedUsers));
+            setContactData({
+                email: "",
+                name: "",
+                phoneno: "",
+                avatar: "",
+            });
+
+            alert("Contact added successfully!");
+
+        } else {
+            alert("User not found!");
+        }
     }
 
     return (
@@ -75,7 +101,7 @@ const AddContact = () => {
                         </div>
                         <div>
                             <button className='bg-blue-500 p-2 w-full rounded text-white hover:bg-blue-700'>
-                                Add
+                                Add Contact
                             </button>
                         </div>
                     </form>

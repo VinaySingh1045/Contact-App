@@ -15,7 +15,7 @@ const Signup = () => {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    const getData = JSON.parse(localStorage.getItem("userData")) || []
+    const getData = JSON.parse(localStorage.getItem("userDataa")) || []
     console.log(getData)
     setData(getData);
   }, [])
@@ -39,7 +39,7 @@ const Signup = () => {
 
     setData(updatedData)
 
-    localStorage.setItem("userData", JSON.stringify(updatedData))
+    localStorage.setItem("userDataa", JSON.stringify(updatedData))
 
     setUserData({ email: "", password: "", confirmPassword: "" });
     // alert("User Registered Successfully");
