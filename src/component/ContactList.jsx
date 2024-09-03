@@ -39,7 +39,7 @@ const ContactList = () => {
               </tr>
             </thead>
             <tbody>
-              {user && user.contacts.map((contact, index) => (
+              {user && user?.contacts?.map((contact, index) => (
                 <tr key={index} className='hover:bg-gray-100 '>
                   <td className='py-3 px-4 border border-gray-300'>{contact.name}</td>
                   <td className='py-3 px-4 border border-gray-300'>{contact.email}</td>
