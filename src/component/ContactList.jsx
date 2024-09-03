@@ -8,17 +8,20 @@ const ContactList = () => {
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
+    // console.log(id);
+
     const updatedContacts = user.contacts.filter((contact) => contact.id !== id);
-    // update user state with updated contacts
 
-    const updatedUser = { ...user, contacts: updatedContacts }
+    const newUser = { ...user, contacts: updatedContacts }
 
-    console.log("Updated User:", updatedUser);
-    localStorage.setItem("userDataa", JSON.stringify(updatedUser))
+    const users = JSON.parse(localStorage.getItem('userDataa')) || [];
+    const updatedUsers = users.map((u) => u.email === newUser.email ? newUser : u) || [];
+    localStorage.setItem('userDataa', JSON.stringify(updatedUsers));
 
+    dispatch(setUser(newUser));
 
-    dispatch(setUser(updatedUser));
-    alert("User deleted Successfully");
+    alert('Contact deleted successfully');
+
 
   }
 

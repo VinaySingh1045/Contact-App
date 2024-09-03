@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { setUser } from '../features/authSlice'
+import { v4 as uuidv4 } from 'uuid';
 
 const AddContact = () => {
 
     const { user } = useSelector(state => state.auth)
     const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     const [contactData, setContactData] = useState({
         email: "",
@@ -24,14 +27,20 @@ const AddContact = () => {
 
         const users = JSON.parse(localStorage.getItem("userDataa")) || []
         // const updatedUsers = users.map(user => user.email === user.email? {...user, contacts: [...user.contacts, contactData]} : user)
-        
+
         const currentUser = users.find(u => u.email === user.email);
 
         if (currentUser) {
-            currentUser.contacts = currentUser.contacts ? [...currentUser.contacts, contactData] : [contactData];
+
+            const newData = {id:uuidv4(), ...contactData};
+
+            currentUser.contacts = currentUser.contacts ? [...currentUser.contacts, newData] : [newData];
 
             const updatedUsers = users.map(u => u.email === user.email ? currentUser : u);
             localStorage.setItem("userDataa", JSON.stringify(updatedUsers));
+
+            dispatch(setUser(currentUser));
+
             setContactData({
                 email: "",
                 name: "",
